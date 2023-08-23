@@ -2,9 +2,9 @@ import "./Class.css";
 
 function Class(props){
     return (
-        <p className="class">
-            {props.name}
-        </p>
+        <div className="class">
+            {props.name.code} - {props.name.name}
+        </div>
     )
 }
 

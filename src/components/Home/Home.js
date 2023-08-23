@@ -1,35 +1,50 @@
 import React, {useState} from "react";
 import Class from "../Class/Class";
+import "./Home.css";
 
 function Home(props){
 
-    const [value, setValue] = useState('');
-    const [favoriteClasses, setClasses] = useState([]);
+    const [courseCode, setCourseCode] = useState('');
+    const [courseName, setCourseName] = useState('');
+    const [courseList, setCourseList] = useState([]);
 
-    const handleChange = (event) => {
-        setValue(event.target.value);
-    }
+    const handleCodeChange = (event) => {
+        setCourseCode(event.target.value);
+    };
+    
+    const handleNameChange = (event) => {
+        setCourseName(event.target.value);
+    };
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        if (!favoriteClasses.includes(value.trim())) {
-            setClasses(favoriteClasses.concat(value.trim()));
-            setValue('');
-        }
-    }
+        
+        if (courseList.some((course) => course.code === courseCode)) {return;}
 
+        setCourseList([...courseList, { code: courseCode.trim(), name: courseName.trim()}]);
+        setCourseCode('');
+        setCourseName('');
+        
+    }
 
     return (
         <div>
-            <h1>Courses</h1>
+            <h2>My Course List</h2>
             <form onSubmit={handleSubmit}>
-                <label>Add Course:  </label>
-                <input type="text" value={value} onChange={handleChange}></input>
-                <button type="submit">+</button>
+                <div>
+                    <label>Course Code:</label>
+                    <input type="text" id="courseCode" value={courseCode} onChange={handleCodeChange} required></input>
+                </div>
+                <div>
+                    <label>Course Name:</label>
+                    <input type="text" id="courseName" value={courseName} onChange={handleNameChange} required></input>
+                </div>
+                    <button type="submit">Submit</button>
+
             </form>
             <div>
-                {favoriteClasses.map((favClass) => 
-                    <Class name={favClass} key={favClass}></Class>
+                {courseList.map((course, index) => 
+                    <Class name={course} key={index}></Class>
                 )}
             </div>
         </div>
