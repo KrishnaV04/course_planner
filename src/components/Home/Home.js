@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import Class from "../Class/Class";
+import ClassGraphQL from "../Class/ClassGraphQL";
 import "./Home.css";
 
 function Home(props){
@@ -44,7 +45,7 @@ function Home(props){
             </form>
             <div>
                 {courseList.map((course, index) => 
-                    <Class name={course} key={index}></Class>
+                    <ClassGraphQL name={course} key={index}></ClassGraphQL> // modify the tag to Class to use the Class.js which uses REST instead of graphQL
                 )}
             </div>
         </div>
